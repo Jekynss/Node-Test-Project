@@ -1,4 +1,6 @@
 const express = require("express");
+const AuthMiddl = require('../middlewares/Authentication');
+
 const router = express.Router();
 const {
   getProfiles,
@@ -6,9 +8,11 @@ const {
   deleteProfile,
   updateProfile,
   readProfile,
+  registerUser,
+  loginUser,
 } = require("../controllers/Profiles");
 
-router.route("/").get(getProfiles).post(addProfile);
+router.route("/").get(/*AuthMiddl.GetAuth,*/getProfiles).post(/*AuthMiddl.GetAuth,*/addProfile);
 
 router
    .route("/:id")

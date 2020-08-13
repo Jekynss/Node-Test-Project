@@ -32,8 +32,8 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
-      user_id: {
-        type: Sequelize.INTEGER
+      password: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
