@@ -8,16 +8,14 @@ const {
   deleteProfile,
   updateProfile,
   readProfile,
-  registerUser,
-  loginUser,
 } = require("../controllers/Profiles");
 
-router.route("/").get(/*AuthMiddl.GetAuth,*/getProfiles).post(/*AuthMiddl.GetAuth,*/addProfile);
+router.route("/").get(AuthMiddl.GetAuth,getProfiles).post(AuthMiddl.GetAuth,addProfile);
 
 router
    .route("/:id")
-   .delete(deleteProfile)
-   .put(updateProfile)
-   .get(readProfile);
+   .delete(AuthMiddl.GetAuth,deleteProfile)
+   .put(AuthMiddl.GetAuth,updateProfile)
+   .get(AuthMiddl.GetAuth,readProfile);
 
 module.exports = router;
