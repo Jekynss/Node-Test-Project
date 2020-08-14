@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.myAssociation = this.belongsToMany(models.Project, {
+        as: "projects",
+        through: models.Profile_Projects,
+        foreignKey: 'profile_id',
+        otherKey: 'project_id'
+      });
     }
   }
   Profile.init(

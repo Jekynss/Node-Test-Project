@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-  "postgres://myuser:password@localhost:5432/crmdb"
+  `${process.env.DB}://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.DB_IP}:${process.env.PORT}/${process.env.DB_NAME}`
 );
 
 const connectPG = async () => {

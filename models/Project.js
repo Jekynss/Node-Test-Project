@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.myAssociation = this.belongsToMany(models.Profile, {
+        as: "profiles",
+        through: models.Profile_Projects,
+        foreignKey: 'project_id',
+        otherKey: 'profile_id'
+      });
     }
   };
   Project.init({
