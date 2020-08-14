@@ -22,7 +22,7 @@ exports.registerUser = async function (req, res, next) {
           if (!created) {
             return res
               .status(400)
-              .json({ msg: "email already taken", error: true });
+              .json({ message: "email already taken", error: true });
           }
           let token = jwt.sign(
             { id: user.id, email: user.email, name: user.name },
@@ -30,20 +30,20 @@ exports.registerUser = async function (req, res, next) {
             { expiresIn: 86400 }
           );
           return res.status(200).json({
-            msg: "Success! you have been registered",
+            message: "Success! you have been registered",
             error: false,
             user,
           });
         } catch (error) {
-          return res.status(500).json({ msg: error.message, error: true });
+          return res.status(500).json({ message: error.message, error: true });
         }
       });
     });
   } catch (err) {
     if (err.status == 400) {
-      return res.status(400).json({ msg: err.message, error: true });
+      return res.status(400).json({ message: err.message, error: true });
     }
-    return res.status(500).json({ msg: err.message, error: true });
+    return res.status(500).json({ message: err.message, error: true });
   }
 };
 
@@ -65,7 +65,7 @@ exports.loginUser = async function (req, res, next) {
           delete userObj.createdAt;
           delete userObj.updatedAt;
           return res.status(200).json({
-            msg: "success",
+            message: "success",
             error: false,
             token: token,
             user: userObj,
@@ -74,14 +74,14 @@ exports.loginUser = async function (req, res, next) {
 
         return res
           .status(401)
-          .json({ msg: "Wrong password!", error: true, field: "password" });
+          .json({ message: "Wrong password!", error: true, field: "password" });
       });
     } else {
       return res
         .status(401)
-        .json({ msg: "Wrong email!", error: true, field: "password" });
+        .json({ message: "Wrong email!", error: true, field: "password" });
     }
   } catch (err) {
-    return res.status(401).json({ msg: "Error!", error: true });
+    return res.status(401).json({ message: "Error!", error: true });
   }
 };

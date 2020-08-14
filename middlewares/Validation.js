@@ -3,10 +3,12 @@ const Joi = require("@hapi/joi");
 const profileSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required().email(),
-  phone: Joi.string(),
-  website: Joi.string(),
-  address: Joi.string(),
-  description: Joi.string(),
+  phone: Joi.string().optional().allow(''),
+  website: Joi.string().optional().allow(''),
+  address: Joi.string().optional().allow(''),
+  description: Joi.string().optional().allow(''),
+  tokenId: Joi.optional().allow(''),
+  image_url: Joi.string().required().uri(),
 });
 
 const userSchema = Joi.object({
