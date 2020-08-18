@@ -90,3 +90,15 @@ exports.readProfile = async (req, res, next) => {
     console.log(err);
   }
 };
+
+exports.getProjects = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const profile = await Profile.findOne({ where: { id } });
+    const profileProjects = await profile.getProjects();
+    res.status(200).json(profileProjects);
+  } catch (err) {
+    console.log(err);
+  }
+};

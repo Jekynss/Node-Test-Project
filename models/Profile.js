@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         as: "projects",
         through: models.Profile_Projects,
         foreignKey: 'profile_id',
-        otherKey: 'project_id'
+        otherKey: 'project_id',
+        onDelete: 'CASCADE'
       });
     }
   }

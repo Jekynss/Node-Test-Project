@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         as: "profiles",
         through: models.Profile_Projects,
         foreignKey: 'project_id',
-        otherKey: 'profile_id'
+        otherKey: 'profile_id',
+        onDelete: 'CASCADE'
       });
     }
   };
@@ -24,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.ENUM('active','pending','completed','failed'),
     stack: DataTypes.ARRAY(DataTypes.STRING,),
     price: DataTypes.NUMERIC,
-    developers: DataTypes.ARRAY(DataTypes.INTEGER),
     description: DataTypes.STRING
   }, {
     sequelize,
