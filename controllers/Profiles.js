@@ -85,7 +85,7 @@ exports.readProfile = async (req, res, next) => {
 
   try {
     const profile = await Profile.findOne({ where: { id } });
-    res.json(profile, res.sendStatus(200));
+    res.status(200).json(profile);
   } catch (err) {
     console.log(err);
   }
