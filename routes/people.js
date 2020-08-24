@@ -1,5 +1,8 @@
 const express = require("express");
+const multer = require("multer")
 const AuthMiddl = require('../middlewares/Authentication');
+const profileController = require('../controllers/Profiles')
+const upload = multer({ storage: profileController.storage })
 
 const router = express.Router();
 const {
@@ -17,7 +20,7 @@ router
    .route("/:id")
    .delete(AuthMiddl.GetAuth,deleteProfile)
    .put(AuthMiddl.GetAuth,updateProfile)
-   .get(AuthMiddl.GetAuth,readProfile)
+   .get(AuthMiddl.GetAuth,upload.single('avatar'),readProfile)
 
 router
   .route("/:id/projects").get(AuthMiddl.GetAuth,getProjects)

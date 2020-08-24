@@ -3,10 +3,11 @@ const User = models.User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const jwtsecret = "mysecretkey";
-const {userValidation} = require('../middlewares/Validation');
+const { userValidation } = require("../middlewares/Validation");
+const { GetIdFromJWT } = require("../middlewares/Authentication");
 
 exports.registerUser = async function (req, res, next) {
-  userValidation(req.body,res);
+  userValidation(req.body, res);
   try {
     bcrypt.genSalt(12, function (err, salt) {
       bcrypt.hash(req.body.password, salt, async function (err, hash) {
@@ -83,5 +84,15 @@ exports.loginUser = async function (req, res, next) {
     }
   } catch (err) {
     return res.status(401).json({ message: "Error!", error: true });
+  }
+};
+
+exports.getUser = async function (req, res, next) {
+  try {
+    const id = await GetIdFromJWT(req.headers.token);
+    const user = await User.findOne({ where: { id } });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).send(err);
   }
 };

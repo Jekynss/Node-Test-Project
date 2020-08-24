@@ -5,7 +5,6 @@ dotenv.config('./config/config.env')
 const connectPG = require('./config/db');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-
 dotenv.config('./config/config.env');
 connectPG();
 
@@ -13,14 +12,17 @@ connectPG();
 const app = express();
 
 app.use(cors());
+app.use('/api/v1/stripe/stripe-webhook/',bodyParser.raw({ type: 'application/json' })); 
 app.use(bodyParser.json());
 
 const people = require('./routes/people');
 const users = require('./routes/users');
 const projects = require('./routes/projects');
+const stripeRoute = require('./routes/stripe');
 
 app.use('/api/v1/people',people);
 app.use('/api/v1/users',users);
 app.use('/api/v1/projects',projects);
+app.use('/api/v1/stripe',stripeRoute);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

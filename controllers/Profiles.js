@@ -1,7 +1,22 @@
 const db = require("../config/db");
 const models = require("../models");
 const Profile = models.Profile;
+const multer = require("multer");
 const {profileValidation} = require('../middlewares/Validation');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    hashAvatar = hash(rn());
+    let rec = userDir + `${hashAvatar}`;
+    if (!fs.existsSync(rec)) {
+      fs.mkdirSync(rec);
+    }
+    cb(null, userDir + `${hashAvatar}`)
+  },
+  filename: function (req, file, cb) {
+    cb(null, `avatar` + '.jpg')
+  }
+})
 
 exports.getProfiles = async (req, res, next) => {
   try {
