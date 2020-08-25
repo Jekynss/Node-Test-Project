@@ -14,13 +14,13 @@ const {
   getProjects,
 } = require("../controllers/Profiles");
 
-router.route("/").get(AuthMiddl.GetAuth,getProfiles).post(AuthMiddl.GetAuth,addProfile);
+router.route("/").get(AuthMiddl.GetAuth,getProfiles).post(AuthMiddl.GetAuth,AuthMiddl.PlanCanEdit,addProfile);
 
 router
    .route("/:id")
-   .delete(AuthMiddl.GetAuth,deleteProfile)
-   .put(AuthMiddl.GetAuth,updateProfile)
-   .get(AuthMiddl.GetAuth,upload.single('avatar'),readProfile)
+   .delete(AuthMiddl.GetAuth,AuthMiddl.PlanCanEdit,deleteProfile)
+   .put(AuthMiddl.GetAuth,AuthMiddl.PlanCanEdit,updateProfile)
+   .get(AuthMiddl.GetAuth,AuthMiddl.PlanCanEdit,upload.single('avatar'),readProfile)
 
 router
   .route("/:id/projects").get(AuthMiddl.GetAuth,getProjects)

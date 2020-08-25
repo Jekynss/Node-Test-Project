@@ -9,10 +9,10 @@ const {
   updateProject,
 } = require("../controllers/Projects");
 
-router.route("/:id").delete(AuthMiddl.GetAuth, deleteProject).get(AuthMiddl.GetAuth, readProject).put(AuthMiddl.GetAuth,updateProject);
+router.route("/:id").delete(AuthMiddl.GetAuth, AuthMiddl.PlanCanEdit,deleteProject).get(AuthMiddl.GetAuth, readProject).put(AuthMiddl.GetAuth,AuthMiddl.PlanCanEdit,updateProject);
 router
   .route("/")
   .get(AuthMiddl.GetAuth, getAllProjects)
-  .post(AuthMiddl.GetAuth, addProject);
+  .post(AuthMiddl.GetAuth, AuthMiddl.PlanCanEdit, addProject);
 
 module.exports = router;

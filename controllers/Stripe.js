@@ -38,6 +38,8 @@ async function createSubscription(userId, plan, payment_method) {
       expand: ["latest_invoice.payment_intent"],
     });
 
+    const product = await stripe.products.retrieve(subscription.plan.product);
+
     const invoice = subscription.latest_invoice;
     const payment_intent = invoice.payment_intent;
     const user = await User.findOne({ where: { id: userId } });
@@ -51,6 +53,8 @@ async function createSubscription(userId, plan, payment_method) {
     if (payment_intent.status === "succeeded") {
       user.update({
         status: "active",
+        planName: product.name,
+        expirationDate: new Date(subscription.current_period_end*1000),
       });
     }
     return subscription;
