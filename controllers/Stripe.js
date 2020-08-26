@@ -116,8 +116,9 @@ exports.handleHook = async (req, res) => {
       break;
     }
 
-    case "checkout.session.completed": {
-      console.log(`🔔  Payment received!`);
+    case "customer.subscription.deleted": {
+      const user = await User.findOne({where:{subscription:dataObject.id}})
+      user && user.update({status: "failed", planName:''})
       break;
     }
 
