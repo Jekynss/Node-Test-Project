@@ -1,11 +1,10 @@
 const express = require('express');
 const dotenv= require('dotenv');
-const port = 3002;
-dotenv.config('./config/config.env')
+const port = process.env.PORT || 5000;
 const connectPG = require('./config/db');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-dotenv.config('./config/config.env');
+const path = require('path');
 connectPG();
 
 
@@ -26,5 +25,12 @@ app.use('/api/v1/users',users);
 app.use('/api/v1/projects',projects);
 app.use('/api/v1/stripe',stripeRoute);
 app.use('/api/v1/token',token);
+
+app.use(express.static(path.join(__dirname, '/build')))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build'))
+})
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

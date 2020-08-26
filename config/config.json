@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "myuser",
-    "password": "password",
-    "database": "crmdb",
-    "host": "127.0.0.1",
+    "username": "wsdexkrkyjyddg",
+    "password": "24ac24cabfa0f5ee2d8bc99b2070eefa264de3cc230fb7e84dd956dbc91f3558",
+    "database": "d2rlpagn6b7c11",
+    "host": "ec2-176-34-123-50.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres"
   },
   "test": {
-    "username": "myuser",
-    "password": "password",
-    "database": "crmdb",
-    "host": "127.0.0.1",
+    "username": "wsdexkrkyjyddg",
+    "password": "24ac24cabfa0f5ee2d8bc99b2070eefa264de3cc230fb7e84dd956dbc91f3558",
+    "database": "d2rlpagn6b7c11",
+    "host": "ec2-176-34-123-50.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres"
   },
   "production": {
-    "username": "myuser",
-    "password": "password",
-    "database": "crmdb",
-    "host": "127.0.0.1",
+    "username": "wsdexkrkyjyddg",
+    "password": "24ac24cabfa0f5ee2d8bc99b2070eefa264de3cc230fb7e84dd956dbc91f3558",
+    "database": "d2rlpagn6b7c11",
+    "host": "ec2-176-34-123-50.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres"
   }
 }
