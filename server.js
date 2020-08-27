@@ -1,14 +1,18 @@
 const express = require('express');
 const dotenv= require('dotenv');
 const port = process.env.PORT || 5000;
-const connectPG = require('./config/db');
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require('path');
-connectPG();
 
 
 const app = express();
+
+if(app.settings.env==="development")
+dotenv.config('./config/config.env')
+
+const connectPG = require('./config/db');
+connectPG();
 
 app.use(cors());
 app.use('/api/v1/stripe/stripe-webhook/',bodyParser.raw({ type: 'application/json' })); 
@@ -28,8 +32,8 @@ app.use('/api/v1/token',token);
 
 app.use(express.static(path.join(__dirname, '/build')))
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build'))
+app.use('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/build/index.html'))
 })
 
 
