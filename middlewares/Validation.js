@@ -21,8 +21,10 @@ const projectSchema = Joi.object({
   name: Joi.string(),
   status:  Joi.string().valid('active','pending','completed','failed'),
   stack: Joi.array().items(Joi.string()),
-  price: Joi.string(),
-  description: Joi.string()
+  price: Joi.number(),
+  description: Joi.string(),
+  developers: Joi.array().optional().allow(),
+  tokenId: Joi.optional().allow(""),
 });
 
 exports.userValidation = function (body, res) {
