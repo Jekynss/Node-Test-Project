@@ -23,6 +23,7 @@
     "object-hash": "^2.0.3",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
+    "random-number": "0.0.9",
     "sequelize": "^6.3.4",
     "stripe": "^8.89.0",
     "stripe-cli": "^0.1.0",

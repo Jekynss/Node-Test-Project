@@ -2,21 +2,25 @@ const db = require("../config/db");
 const models = require("../models");
 const Profile = models.Profile;
 const multer = require("multer");
-const {profileValidation} = require('../middlewares/Validation');
+const hash = require("object-hash");
+const rn = require("random-number");
+const fs = require("fs");
+const profileDir = "uploads/profiles/";
+const { profileValidation } = require("../middlewares/Validation");
 
-const storage = multer.diskStorage({
+exports.storage = multer.diskStorage({
   destination: function (req, file, cb) {
     hashAvatar = hash(rn());
-    let rec = userDir + `${hashAvatar}`;
+    let rec = profileDir + `${hashAvatar}`;
     if (!fs.existsSync(rec)) {
       fs.mkdirSync(rec);
     }
-    cb(null, userDir + `${hashAvatar}`)
+    cb(null, profileDir + `${hashAvatar}`);
   },
   filename: function (req, file, cb) {
-    cb(null, `avatar` + '.jpg')
-  }
-})
+    cb(null, `avatar` + ".png");
+  },
+});
 
 exports.getProfiles = async (req, res, next) => {
   try {
@@ -50,7 +54,7 @@ exports.deleteProfile = async (req, res, next) => {
   }
 };
 exports.addProfile = async (req, res, next) => {
-  profileValidation(req.body,res);
+  profileValidation(req.body, res);
   const profile = {
     name: req.body.name,
     description: req.body.description,
@@ -72,16 +76,36 @@ exports.addProfile = async (req, res, next) => {
 };
 exports.updateProfile = async (req, res, next) => {
   const id = req.params.id;
-  try {
-    const num = await Profile.update(
-      req.body,
-      {
-        where: { id: id },
+
+  let update_string = req.body;
+  const profile = await Profile.findOne({ where: { id: id } });
+  if (req.file) {
+    if (profile.image_url) {
+      try {
+        fs.unlinkSync(`uploads${profile.image_url.split("/uploads")[1]}`);
+        fs.rmdirSync(
+          `uploads/profiles/${
+            profile.image_url.split("/avatar.png")[0].split("/")[5]
+          }`
+        );
+      } catch (err) {
+        console.log(err, "ERROR");
       }
-    );
+    }
+    update_string = {
+      ...update_string,
+      image_url: process.env.HOST + "/" + req.file.path,
+    };
+  }
+
+  try {
+    const num = await Profile.update(update_string, {
+      where: { id: id },
+    });
     if (num == 1) {
       res.send({
         message: "Profile was updated successfully.",
+        image_url: update_string.image_url,
       });
     } else {
       res.send({

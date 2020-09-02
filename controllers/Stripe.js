@@ -97,7 +97,7 @@ exports.handleHook = async (req, res) => {
 
   const dataObject = event.data.object;
 
-  console.log(event.type, "EEEVENT");
+  console.log(event.type, "EVENT");
 
   switch (event.type) {
     case "invoice.paid": {

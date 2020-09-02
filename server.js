@@ -20,11 +20,13 @@ const users = require('./routes/users');
 const projects = require('./routes/projects');
 const stripeRoute = require('./routes/stripe');
 const token = require('./routes/token');
+const index = require('./routes/index');
 
 app.use('/api/v1/people',people);
 app.use('/api/v1/users',users);
 app.use('/api/v1/projects',projects);
 app.use('/api/v1/stripe',stripeRoute);
 app.use('/api/v1/token',token);
+app.use('/uploads',index);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
