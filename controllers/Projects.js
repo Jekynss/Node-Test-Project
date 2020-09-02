@@ -41,7 +41,7 @@ exports.deleteProject = async (req, res, next) => {
 };
 
 exports.addProject = async (req, res, next) => {
-  profileValidation(req.body, res);
+  projectValidation(req.body, res);
   const project = {
     name: req.body.name,
     status: req.body.status,
