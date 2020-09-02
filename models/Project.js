@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     name: DataTypes.STRING,
     status: DataTypes.ENUM('active','pending','completed','failed'),
-    stack: DataTypes.ARRAY(DataTypes.STRING,),
+    stack: DataTypes.ARRAY(DataTypes.STRING),
     price: DataTypes.NUMERIC,
     description: DataTypes.STRING
   }, {
